@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>20/10</title>
+</head>
+<body>
+    <style>
+        :root {
+        --primary-color: #ec1f55;
+        --text-color: #333;
+        }
+  
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: inherit;
+        }
+  
+        body {
+            background-image: url('bg.jpeg');
+            background-repeat: no-repeat;
+            background-size: cover
+        }
+  
+        html {
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;   
+        }
+        .app{
+            width: 200px;
+            height: 500px;
+            margin: auto;
+        }
+        .time{
+            width: 100px;
+            height: 100px;
+            margin: auto;
+            background-color: pink;
+            position: relative;
+            top: 40px;
+            border-radius: 50px;
+            /* display: none; */
+        }
+        h1{
+            position: absolute;
+            text-align: center;
+            margin-top: 31px;
+            color: red;
+            margin-left: 41px;
+            display: none;
+        }
+        .modal{
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 1);
+            animation: modalFadeIn ease 0.7s;
+
+        }
+        @keyframes modalFadeIn{
+            from{
+                opacity: 0;
+                transform: translateY(-100px);
+            }
+            to{
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+        .modal-pre{
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: rgba(178, 199, 178, 0.8);
+            animation: modalFadeIn ease 0.7s;
+
+        }
+        .img-pre{
+            background-repeat: no-repeat;
+            width: 327px;
+            height: 432px;
+            background-size: cover;
+            border-radius: 20%;
+            margin-top: 123px;
+            /* 45px */
+            margin-left: 580px;
+        }
+        .modal__overlay{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: red;
+        }
+        .modal__body{
+        --growth-from:0.7;
+        --growth-to:0.1;
+        width: 500px;
+        margin: auto;
+        position: relative;
+        z-index: 1;
+        animation: modalFadeIn ease 0.7s;
+        }
+        .heart{
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            margin: auto;
+            margin-top: 100px;
+            position: relative;
+            transform: rotate(-45deg);
+            box-shadow: -10px 10px 90px red;
+            text-align: center;
+            animation: heart 0.4s linear infinite;
+        }
+        .heart:after{
+            content: "";
+            position: absolute;
+            width: 101px;
+            height: 200px;
+            right: -50%;
+            border-top-right-radius: 100px;
+            border-bottom-right-radius: 100px;
+            box-shadow: -10px -10px 90px  red;
+            background-color: red;
+            
+            
+        }
+        @keyframes heart {
+            50%{
+                transform: rotate(-45deg) scale(1.1);
+            }
+            80%{
+                transform: rotate(-45deg) scale(1);
+            }
+            100%{
+                transform: rotate(-45deg) scale(0.9);
+            }
+        }
+        .heart_des{
+            transform: rotate(45deg);
+            margin-left: -40px;
+            margin-top: -19px;
+            text-align: center;
+            color: white;
+            font-size: 30px;
+            width: 400px;
+            
+        }
+        .heart:before{
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 101px;
+            top: -50%;
+            border-top-right-radius: 100px;
+            border-top-left-radius: 100px;
+            box-shadow: -10px -10px 90px  red;
+            background-color: red;
+            margin-left: -100px;
+
+        }
+        .txt{
+            margin: auto;
+            /* 73 */
+            margin-left: 620px;
+            margin-top: 75px;
+            color: white;
+            font-family: cursive;
+        }
+        @media(max-width: 740px){
+            .txt{
+                margin-left: 73px;
+            }
+            .btn_present{
+                margin-left: 145px !important;
+            }
+            .img-pre{
+                margin-left: 45px;
+            }
+            .header_face{
+                margin-left: -18px !important;
+            }
+            .countdown{
+                margin-left: 96px !important;
+            }
+            .img-text{
+                margin-left: 74px !important;
+            }
+        }
+        .txt_header{
+            font-size: 22px;
+            margin-left: -24px;
+            font-family: fangsong;
+            color: orange
+        }
+        .txt_des{
+            font-size: 15px;
+            margin-left: -9px;
+            width: 300px;
+        }
+        .txt_foot{
+            font-size: 13px;
+            margin-left: 223px;
+        }
+        .modal{
+            display: none;
+        }
+        .modal-pre{
+            display: none;
+        }
+        .modal.open{
+            display: block;
+        }
+        .modal-pre.open-pre{
+            display: block;
+        }
+        p{
+            z-index: 1;
+        }
+        .pyro > .before, .pyro > .after {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            pointer-events: none;
+            z-index: 99999999;
+            border-radius: 50%;
+            box-shadow: -120px -218.66667px blue, 248px -16.66667px #00ff84, 190px 16.33333px #002bff, -113px -308.66667px #ff009d, -109px -287.66667px #ffb300, -50px -313.66667px #ff006e, 226px -31.66667px #ff4000, 180px -351.66667px #ff00d0, -12px -338.66667px #00f6ff, 220px -388.66667px #99ff00, -69px -27.66667px #ff0400, -111px -339.66667px #6200ff, 155px -237.66667px #00ddff, -152px -380.66667px #00ffd0, -50px -37.66667px #00ffdd, -95px -175.66667px #a6ff00, -88px 10.33333px #0d00ff, 112px -309.66667px #005eff, 69px -415.66667px #ff00a6, 168px -100.66667px #ff004c, -244px 24.33333px #ff6600, 97px -325.66667px #ff0066, -211px -182.66667px #00ffa2, 236px -126.66667px #b700ff, 140px -196.66667px #9000ff, 125px -175.66667px #00bbff, 118px -381.66667px #ff002f, 144px -111.66667px #ffae00, 36px -78.66667px #f600ff, -63px -196.66667px #c800ff, -218px -227.66667px #d4ff00, -134px -377.66667px #ea00ff, -36px -412.66667px #ff00d4, 209px -106.66667px #00fff2, 91px -278.66667px #000dff, -22px -191.66667px #9dff00, 139px -392.66667px #a6ff00, 56px -2.66667px #0099ff, -156px -276.66667px #ea00ff, -163px -233.66667px #00fffb, -238px -346.66667px #00ff73, 62px -363.66667px #0088ff, 244px -170.66667px #0062ff, 224px -142.66667px #b300ff, 141px -208.66667px #9000ff, 211px -285.66667px #ff6600, 181px -128.66667px #1e00ff, 90px -123.66667px #c800ff, 189px 70.33333px #00ffc8, -18px -383.66667px #00ff33, 100px -6.66667px #ff008c;
+            -moz-animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+            -webkit-animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+            -o-animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+            -ms-animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+            animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards; }
+
+            .pyro > .after {
+            -moz-animation-delay: 1.25s, 1.25s, 1.25s;
+            -webkit-animation-delay: 1.25s, 1.25s, 1.25s;
+            -o-animation-delay: 1.25s, 1.25s, 1.25s;
+            -ms-animation-delay: 1.25s, 1.25s, 1.25s;
+            animation-delay: 1.25s, 1.25s, 1.25s;
+            -moz-animation-duration: 1.25s, 1.25s, 6.25s;
+            -webkit-animation-duration: 1.25s, 1.25s, 6.25s;
+            -o-animation-duration: 1.25s, 1.25s, 6.25s;
+            -ms-animation-duration: 1.25s, 1.25s, 6.25s;
+            animation-duration: 1.25s, 1.25s, 6.25s; }
+
+            @-webkit-keyframes bang {
+            from {
+                box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+            @-moz-keyframes bang {
+            from {
+                box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+            @-o-keyframes bang {
+            from {
+                box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+            @-ms-keyframes bang {
+            from {
+                box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+            @keyframes bang {
+            from {
+                box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white; } }
+            @-webkit-keyframes gravity {
+            to {
+                transform: translateY(200px);
+                -moz-transform: translateY(200px);
+                -webkit-transform: translateY(200px);
+                -o-transform: translateY(200px);
+                -ms-transform: translateY(200px);
+                opacity: 0; } }
+            @-moz-keyframes gravity {
+            to {
+                transform: translateY(200px);
+                -moz-transform: translateY(200px);
+                -webkit-transform: translateY(200px);
+                -o-transform: translateY(200px);
+                -ms-transform: translateY(200px);
+                opacity: 0; } }
+            @-o-keyframes gravity {
+            to {
+                transform: translateY(200px);
+                -moz-transform: translateY(200px);
+                -webkit-transform: translateY(200px);
+                -o-transform: translateY(200px);
+                -ms-transform: translateY(200px);
+                opacity: 0; } }
+            @-ms-keyframes gravity {
+            to {
+                transform: translateY(200px);
+                -moz-transform: translateY(200px);
+                -webkit-transform: translateY(200px);
+                -o-transform: translateY(200px);
+                -ms-transform: translateY(200px);
+                opacity: 0; } }
+            @keyframes gravity {
+            to {
+                transform: translateY(200px);
+                -moz-transform: translateY(200px);
+                -webkit-transform: translateY(200px);
+                -o-transform: translateY(200px);
+                -ms-transform: translateY(200px);
+                opacity: 0; } }
+            @-webkit-keyframes position {
+            0%, 19.9% {
+                margin-top: 10%;
+                margin-left: 40%; }
+
+            20%, 39.9% {
+                margin-top: 40%;
+                margin-left: 30%; }
+
+            40%, 59.9% {
+                margin-top: 20%;
+                margin-left: 70%; }
+
+            60%, 79.9% {
+                margin-top: 30%;
+                margin-left: 20%; }
+
+            80%, 99.9% {
+                margin-top: 30%;
+                margin-left: 80%; } }
+            @-moz-keyframes position {
+            0%, 19.9% {
+                margin-top: 10%;
+                margin-left: 40%; }
+
+            20%, 39.9% {
+                margin-top: 40%;
+                margin-left: 30%; }
+
+            40%, 59.9% {
+                margin-top: 20%;
+                margin-left: 70%; }
+
+            60%, 79.9% {
+                margin-top: 30%;
+                margin-left: 20%; }
+
+            80%, 99.9% {
+                margin-top: 30%;
+                margin-left: 80%; } }
+            @-o-keyframes position {
+            0%, 19.9% {
+                margin-top: 10%;
+                margin-left: 40%; }
+
+            20%, 39.9% {
+                margin-top: 40%;
+                margin-left: 30%; }
+
+            40%, 59.9% {
+                margin-top: 20%;
+                margin-left: 70%; }
+
+            60%, 79.9% {
+                margin-top: 30%;
+                margin-left: 20%; }
+
+            80%, 99.9% {
+                margin-top: 30%;
+                margin-left: 80%; } }
+            @-ms-keyframes position {
+            0%, 19.9% {
+                margin-top: 10%;
+                margin-left: 40%; }
+
+            20%, 39.9% {
+                margin-top: 40%;
+                margin-left: 30%; }
+
+            40%, 59.9% {
+                margin-top: 20%;
+                margin-left: 70%; }
+
+            60%, 79.9% {
+                margin-top: 30%;
+                margin-left: 20%; }
+
+            80%, 99.9% {
+                margin-top: 30%;
+                margin-left: 80%; } }
+            @keyframes position {
+            0%, 19.9% {
+                margin-top: 10%;
+                margin-left: 40%; }
+
+            20%, 39.9% {
+                margin-top: 40%;
+                margin-left: 30%; }
+
+            40%, 59.9% {
+                margin-top: 20%;
+                margin-left: 70%; }
+
+            60%, 79.9% {
+                margin-top: 30%;
+                margin-left: 20%; }
+
+            80%, 99.9% {
+                margin-top: 30%;
+                margin-left: 80%; } }
+            .header_face{
+                width: 268px;
+                text-align: center;
+                margin-top: 16px;
+                color: darkred;
+                font-size: 25px;
+                margin: auto;
+                /* -29px */
+                margin-left: -60px;
+                font-family: ui-serif;
+                border-radius: 59px;
+            }
+            .time_text{
+                color: red;
+                margin-top: -40px;
+                position: relative;
+                margin-left: 40px;
+                top: 27px;
+                font-size: 39px;
+                display: none;
+            }
+            .active{
+                display: flex
+            }
+            .countdown {
+                line-height: 1;
+                position: relative;
+                display: block;
+                overflow: hidden;
+                width: 40px;
+                height: 40px;
+                background-color: pink;
+                /* 84px */
+                margin-left: 52px;
+                border-radius: 50%
+            }
+            .numbers {
+                position: absolute;
+                top: 0px;
+                left: 0;
+                text-align: center;
+                transition: 0.3s ease transform;
+                text-indent: 0;
+                font-size: 40px;
+                color: rgb(108, 147, 2);
+            }
+            .number_item{
+                padding-top: 25.5px;
+                padding-bottom: 25.5px;
+            }
+            .btn_present{
+                width: 140px;
+                height: 40px;
+                margin: auto;
+                /* 145px */
+                margin-left: 694px;
+                margin-top: 80px;
+                border-radius: 20px;
+                background-color: red;
+                border: none;
+                color: gainsboro;
+                font-size: 21px
+            }
+            .img-text{
+                color: yellow;
+                font-size: 32px;
+                font-family: fangsong;
+                margin-left: 486px;
+            }
+    </style>
+    <div class="app">
+        <div class="header_face">
+           Chào cô gái!!!
+            <br>
+            Chờ 5s nhé
+        </div>
+        <span class="countdown">
+            <span class="numbers">
+                <span class="number_item">5</span>
+                <br>
+                <span class="number_item">4</span>
+                <span class="number_item">3</span>
+                <span class="number_item">2</span>
+                <span class="number_item">1</span>
+                <span class="number_item">0</span>
+            </span>
+        </span>
+    </div>
+    <div class="modal">
+        <div class="modal_overlay"></div>
+        <div class="modal_body">
+            <div class="pyro"><div class="before"></div><div class="after"></div></div>
+            <div class="heart">  
+                <div class="heart_des">
+                    
+                </div>
+            </div>
+            <div class="txt">
+              <div class="txt_header">
+                  Mừng Ngày Phụ Nữ Việt Nam 20/10!!!
+              </div>
+              <div class="txt_des">
+                  Chúc cô gái thật nhiều sức khỏe 
+                  càng ngày xinh đẹp và thành công trong cuộc sống!!
+              </div>
+              <div class="txt_foot">
+                  <i>Vĩnh Khiêm!!!</i>
+              </div>
+            </div>
+            <button class="btn_present">
+                Mở quà nè!!!
+            </button>
+        </div>
+    </div>
+    <div class="modal-pre">
+        <div class="modal_overlay"></div>
+        <div class="modal_body-pre">
+                <div class="pyro"><div class="before"></div><div class="after"></div></div>
+                <br>
+                <br>
+                <div class="pyro"><div class="before"></div><div class="after"></div></div>
+                <div class="img-text">Thích món nào Khiêm tặng món đó nè!!!</div>
+                <div class="img-pre" style="background-image: url(rose.jpg)"><br>
+                </div>
+        </div>
+    </div>
+    <script>
+        var index =1;
+        Changeimg = function(){
+            var img = ["url(pr2.jpg)","url(pr3.jpg)","url(pr5.jpg)","url(pr1.png)"];
+            document.querySelector('.img-pre').style.backgroundImage = img[index];
+            index++;
+            if(index == img.length){
+                index =0;
+            }
+        }
+        setInterval(Changeimg,3000);
+    </script>
+    <script>    
+        const modalpre = document.querySelector('.modal-pre');
+        const modalcontainerpre = document.querySelector('.modal_body-pre');
+        const btn = document.querySelector('.btn_present');
+        function showformAcc(){
+            modalpre.classList.add('open-pre')
+        }
+        btn.addEventListener('click',showformAcc);
+    </script>
+    <script>
+        const countdownArea = document.querySelector('.countdown');
+        const numbersArea = document.querySelector('.numbers');
+        const modal = document.querySelector('.modal');
+        const modalcontainer = document.querySelector('.modal_body');
+        function showformAcc(){
+            modal.classList.add('open')
+        }
+        let interval;
+        let count = 0;
+        const height = countdownArea.getBoundingClientRect().height;
+        function createTimer() {
+        interval = setInterval(() => {
+            count++;
+            const offset = height*count ;
+            numbersArea.style.transform = `translateY(-${offset}px)`
+
+            if (count >= 5) {
+                    clearInterval(interval);
+                    showformAcc();
+            }
+        }, 1000);
+        }
+        createTimer();
+    </script>
+</body>
+</html>
